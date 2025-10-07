@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Terminal, Github, Linkedin, Mail } from "lucide-react";
+import { Terminal, Github, Linkedin, Mail, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Hero = () => {
@@ -30,69 +30,111 @@ const Hero = () => {
     };
   }, []);
 
+  const scrollToSection = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
-    <section className="min-h-screen flex items-center justify-center px-4 relative overflow-hidden">
+    <section className="min-h-screen flex items-center justify-center px-4 py-20 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-secondary/5" />
       
-      <div className="max-w-4xl w-full relative z-10">
-        <div className="border border-primary/30 bg-card p-8 md:p-12 glow-border-green">
-          <div className="flex items-center gap-2 mb-6 text-primary">
-            <Terminal className="w-5 h-5" />
-            <span className="text-sm">terminal@portfolio:~</span>
+      <div className="max-w-5xl w-full relative z-10">
+        <div className="border border-border bg-card/50 backdrop-blur-sm p-6 md:p-12 hover-glow">
+          <div className="flex items-center gap-2 mb-8 text-muted-foreground text-sm">
+            <Terminal className="w-4 h-4 text-primary" />
+            <span className="font-mono">user@portfolio:~$</span>
           </div>
 
-          <div className="space-y-4 mb-8">
-            <div className="font-mono text-lg md:text-xl">
-              <span className="text-primary glow-text-green">
-                {displayText}
-                {showCursor && <span className="animate-pulse">_</span>}
-              </span>
+          <div className="space-y-6">
+            <div className="font-mono text-lg md:text-xl text-primary">
+              {displayText}
+              {showCursor && <span className="animate-pulse">_</span>}
             </div>
 
             {commandComplete && (
-              <div className="space-y-4 animate-fade-in">
-                <div className="terminal-line text-muted-foreground">
-                  <span className="text-card-foreground">name:</span> Full Stack Developer
-                </div>
-                <h1 className="text-4xl md:text-6xl font-bold text-primary glow-text-green">
-                  JOHN.DEV
-                </h1>
-                <p className="text-xl md:text-2xl text-secondary glow-text-cyan">
-                  Building the future, one commit at a time
-                </p>
-                <div className="terminal-line text-muted-foreground">
-                  <span className="text-card-foreground">status:</span> Available for opportunities
-                </div>
-                <div className="terminal-line text-muted-foreground">
-                  <span className="text-card-foreground">location:</span> Remote / Global
+              <div className="space-y-6 animate-fade-in">
+                <div className="space-y-3 font-mono text-sm text-muted-foreground">
+                  <div className="flex gap-2">
+                    <span className="text-primary">→</span>
+                    <span className="text-foreground">Full Stack Developer</span>
+                  </div>
+                  <div className="flex gap-2">
+                    <span className="text-primary">→</span>
+                    <span className="text-foreground">Specialized in React, Node.js & Cloud Architecture</span>
+                  </div>
                 </div>
 
-                <div className="flex flex-wrap gap-4 mt-8">
+                <div>
+                  <h1 className="text-4xl md:text-7xl font-bold text-foreground mb-4 tracking-tight">
+                    Your Name Here
+                  </h1>
+                  <p className="text-xl md:text-2xl text-secondary font-light">
+                    Crafting scalable solutions for modern web
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 py-6 border-y border-border">
+                  <div>
+                    <div className="text-2xl md:text-3xl font-bold text-primary">5+</div>
+                    <div className="text-sm text-muted-foreground font-mono">Years Exp</div>
+                  </div>
+                  <div>
+                    <div className="text-2xl md:text-3xl font-bold text-secondary">50+</div>
+                    <div className="text-sm text-muted-foreground font-mono">Projects</div>
+                  </div>
+                  <div>
+                    <div className="text-2xl md:text-3xl font-bold text-accent">30+</div>
+                    <div className="text-sm text-muted-foreground font-mono">Clients</div>
+                  </div>
+                  <div>
+                    <div className="text-2xl md:text-3xl font-bold text-primary">100%</div>
+                    <div className="text-sm text-muted-foreground font-mono">Satisfaction</div>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap gap-4">
                   <Button 
-                    variant="default" 
+                    onClick={() => scrollToSection('projects')}
                     size="lg"
-                    className="bg-primary text-primary-foreground hover:bg-primary/90 glow-border-green font-mono"
+                    className="bg-primary text-primary-foreground hover:bg-primary/90 font-mono"
                   >
                     View Projects
                   </Button>
                   <Button 
+                    onClick={() => scrollToSection('contact')}
                     variant="outline" 
                     size="lg"
-                    className="border-secondary text-secondary hover:bg-secondary/10 glow-border-cyan font-mono"
+                    className="border-border hover:bg-secondary/10 hover:border-secondary font-mono"
                   >
-                    Contact Me
+                    Get In Touch
                   </Button>
                 </div>
 
-                <div className="flex gap-4 mt-8 pt-8 border-t border-border">
-                  <a href="https://github.com" className="text-primary hover:text-secondary transition-colors glow-text-green hover:glow-text-cyan">
-                    <Github className="w-6 h-6" />
+                <div className="flex gap-4 pt-6">
+                  <a 
+                    href="https://github.com" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-primary transition-colors"
+                    aria-label="GitHub Profile"
+                  >
+                    <Github className="w-5 h-5" />
                   </a>
-                  <a href="https://linkedin.com" className="text-primary hover:text-secondary transition-colors glow-text-green hover:glow-text-cyan">
-                    <Linkedin className="w-6 h-6" />
+                  <a 
+                    href="https://linkedin.com" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-primary transition-colors"
+                    aria-label="LinkedIn Profile"
+                  >
+                    <Linkedin className="w-5 h-5" />
                   </a>
-                  <a href="mailto:contact@example.com" className="text-primary hover:text-secondary transition-colors glow-text-green hover:glow-text-cyan">
-                    <Mail className="w-6 h-6" />
+                  <a 
+                    href="mailto:contact@example.com"
+                    className="text-muted-foreground hover:text-primary transition-colors"
+                    aria-label="Email Contact"
+                  >
+                    <Mail className="w-5 h-5" />
                   </a>
                 </div>
               </div>
@@ -100,9 +142,14 @@ const Hero = () => {
           </div>
         </div>
 
-        <div className="mt-4 text-center text-muted-foreground text-sm font-mono">
-          <span className="animate-pulse">▼</span> Scroll to explore <span className="animate-pulse">▼</span>
-        </div>
+        <button 
+          onClick={() => scrollToSection('about')}
+          className="mt-8 mx-auto flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors font-mono text-sm"
+          aria-label="Scroll to About Section"
+        >
+          <span>Explore More</span>
+          <ChevronDown className="w-4 h-4 animate-bounce" />
+        </button>
       </div>
     </section>
   );

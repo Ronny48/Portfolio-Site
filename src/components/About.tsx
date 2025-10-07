@@ -1,61 +1,96 @@
-import { Code2, Cpu, Database, Globe } from "lucide-react";
+import { Code2, Zap, Target, Award } from "lucide-react";
 
 const About = () => {
-  const stats = [
-    { icon: Code2, label: "Lines of Code", value: "1M+", color: "text-primary" },
-    { icon: Cpu, label: "Projects", value: "50+", color: "text-secondary" },
-    { icon: Database, label: "Databases", value: "15+", color: "text-accent" },
-    { icon: Globe, label: "Live Sites", value: "30+", color: "text-primary" },
+  const highlights = [
+    { 
+      icon: Code2, 
+      label: "Clean Code", 
+      description: "Writing maintainable, scalable solutions"
+    },
+    { 
+      icon: Zap, 
+      label: "Performance", 
+      description: "Optimized for speed and efficiency"
+    },
+    { 
+      icon: Target, 
+      label: "User-Focused", 
+      description: "Solutions that solve real problems"
+    },
+    { 
+      icon: Award, 
+      label: "Best Practices", 
+      description: "Industry standards and patterns"
+    },
   ];
 
   return (
-    <section id="about" className="py-20 px-4">
+    <section id="about" className="py-20 md:py-32 px-4">
       <div className="max-w-6xl mx-auto">
-        <div className="mb-12">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4">
-            <span className="text-primary glow-text-green">$ cat</span> <span className="text-secondary glow-text-cyan">about.txt</span>
+        <div className="mb-16">
+          <div className="font-mono text-sm text-primary mb-3">$ cat about.md</div>
+          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
+            About Me
           </h2>
-          <div className="h-1 w-32 bg-gradient-to-r from-primary via-secondary to-accent" />
+          <div className="h-1 w-20 bg-gradient-to-r from-primary to-secondary" />
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 mb-12">
-          <div className="border border-primary/30 bg-card p-6 hover:glow-border-green transition-all duration-300">
-            <h3 className="text-xl font-bold text-primary mb-4 terminal-line">Bio</h3>
-            <div className="space-y-3 text-muted-foreground font-mono text-sm">
-              <p className="text-card-foreground">
-                Passionate full-stack developer with expertise in building scalable web applications. 
-                Specialized in modern JavaScript frameworks and cloud architecture.
-              </p>
-              <p>
-                I transform complex problems into elegant solutions, leveraging cutting-edge technologies 
-                to deliver exceptional user experiences.
-              </p>
-              <p className="text-secondary">
-                Always learning, always building, always pushing boundaries.
-              </p>
+        <div className="grid lg:grid-cols-2 gap-8 md:gap-12 mb-12">
+          <div className="space-y-6">
+            <div className="border border-border bg-card/30 p-6 md:p-8 hover-glow">
+              <h3 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
+                <span className="text-primary">▸</span> Who I Am
+              </h3>
+              <div className="space-y-4 text-muted-foreground leading-relaxed">
+                <p className="text-foreground/90">
+                  Full-stack developer with a passion for building exceptional digital experiences. 
+                  I specialize in modern web technologies and cloud-native architectures.
+                </p>
+                <p>
+                  My journey in software development has equipped me with a comprehensive understanding 
+                  of both frontend and backend systems, allowing me to deliver complete solutions 
+                  from concept to deployment.
+                </p>
+                <p>
+                  I thrive on solving complex problems and transforming ideas into robust, 
+                  user-friendly applications that make a real impact.
+                </p>
+              </div>
+            </div>
+
+            <div className="border border-border bg-card/30 p-6 md:p-8 hover-glow">
+              <h3 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
+                <span className="text-secondary">▸</span> What Drives Me
+              </h3>
+              <div className="space-y-3">
+                <div className="flex items-start gap-3">
+                  <span className="text-primary mt-1">→</span>
+                  <p className="text-muted-foreground">Continuous learning and staying ahead of tech trends</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="text-primary mt-1">→</span>
+                  <p className="text-muted-foreground">Building products that users love and businesses need</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="text-primary mt-1">→</span>
+                  <p className="text-muted-foreground">Collaborating with talented teams on challenging projects</p>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            {stats.map((stat, index) => (
+          <div className="grid grid-cols-2 gap-4 md:gap-6">
+            {highlights.map((item, index) => (
               <div
                 key={index}
-                className="border border-primary/30 bg-card p-6 hover:glow-border-cyan transition-all duration-300 text-center"
+                className="border border-border bg-card/30 p-6 hover-glow text-center transition-all duration-300"
               >
-                <stat.icon className={`w-8 h-8 mx-auto mb-3 ${stat.color}`} />
-                <div className="text-2xl font-bold text-card-foreground mb-1">{stat.value}</div>
-                <div className="text-xs text-muted-foreground font-mono">{stat.label}</div>
+                <item.icon className="w-8 h-8 mx-auto mb-3 text-primary" />
+                <div className="text-lg font-bold text-foreground mb-2">{item.label}</div>
+                <div className="text-xs text-muted-foreground">{item.description}</div>
               </div>
             ))}
           </div>
-        </div>
-
-        <div className="border border-secondary/30 bg-card p-6 hover:glow-border-cyan transition-all duration-300">
-          <h3 className="text-xl font-bold text-secondary mb-4 terminal-line">Philosophy</h3>
-          <blockquote className="font-mono text-muted-foreground italic border-l-2 border-accent pl-4">
-            "Code is poetry written in logic. Every function is a verse, every algorithm a stanza. 
-            I craft digital symphonies that resonate with users and stand the test of time."
-          </blockquote>
         </div>
       </div>
     </section>

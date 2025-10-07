@@ -1,105 +1,110 @@
 import { ExternalLink, Github } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 const Projects = () => {
   const projects = [
     {
-      title: "CryptoTracker Pro",
-      description: "Real-time cryptocurrency tracking with advanced analytics and portfolio management.",
-      tech: ["React", "Node.js", "WebSocket", "MongoDB"],
+      title: "E-Commerce Platform",
+      description: "Full-featured online shopping platform with payment integration, inventory management, and real-time analytics. Built for scalability and performance.",
+      tech: ["React", "Node.js", "PostgreSQL", "Stripe", "AWS"],
       github: "#",
       live: "#",
+      featured: true,
     },
     {
-      title: "DevOps Dashboard",
-      description: "Comprehensive monitoring solution for cloud infrastructure with real-time alerts.",
-      tech: ["Vue.js", "Python", "Docker", "PostgreSQL"],
+      title: "Project Management Dashboard",
+      description: "Comprehensive tool for managing projects, teams, and deadlines with real-time collaboration features and detailed reporting.",
+      tech: ["Next.js", "TypeScript", "MongoDB", "Socket.io"],
       github: "#",
       live: "#",
+      featured: true,
     },
     {
-      title: "AI Code Assistant",
-      description: "Intelligent code completion and refactoring tool powered by machine learning.",
-      tech: ["TypeScript", "TensorFlow", "Express", "Redis"],
+      title: "AI Content Generator",
+      description: "SaaS platform leveraging AI to generate high-quality content for blogs, social media, and marketing campaigns.",
+      tech: ["React", "Python", "OpenAI API", "Redis"],
       github: "#",
       live: "#",
+      featured: false,
     },
     {
-      title: "Terminal Portfolio",
-      description: "Interactive developer portfolio with terminal-inspired design and animations.",
-      tech: ["React", "Tailwind", "Framer Motion", "Vercel"],
+      title: "Real-Time Analytics Tool",
+      description: "Dashboard for monitoring website analytics with custom event tracking and visitor behavior analysis.",
+      tech: ["Vue.js", "Node.js", "ClickHouse", "Docker"],
       github: "#",
       live: "#",
+      featured: false,
     },
   ];
 
   return (
-    <section id="projects" className="py-20 px-4">
+    <section id="projects" className="py-20 md:py-32 px-4 bg-gradient-to-b from-transparent via-secondary/5 to-transparent">
       <div className="max-w-6xl mx-auto">
-        <div className="mb-12">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4">
-            <span className="text-primary glow-text-green">$ cd</span> <span className="text-secondary glow-text-cyan">projects/</span>
+        <div className="mb-16">
+          <div className="font-mono text-sm text-primary mb-3">$ cd projects/ && ls</div>
+          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
+            Featured Projects
           </h2>
-          <div className="h-1 w-32 bg-gradient-to-r from-primary via-secondary to-accent" />
+          <div className="h-1 w-20 bg-gradient-to-r from-primary to-secondary" />
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-6 md:gap-8">
           {projects.map((project, index) => (
             <div
               key={index}
-              className="border border-primary/30 bg-card p-6 hover:glow-border-cyan transition-all duration-300 group"
+              className={`border border-border bg-card/30 p-6 md:p-8 hover-glow transition-all duration-300 ${
+                project.featured ? 'md:col-span-2 lg:col-span-1' : ''
+              }`}
             >
               <div className="flex items-start justify-between mb-4">
-                <h3 className="text-xl font-bold text-card-foreground group-hover:text-secondary transition-colors">
+                <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
                   {project.title}
                 </h3>
-                <div className="flex gap-2">
+                <div className="flex gap-3">
                   <a 
                     href={project.github}
-                    className="text-primary hover:text-secondary transition-colors"
+                    className="text-muted-foreground hover:text-primary transition-colors"
+                    aria-label={`View ${project.title} on GitHub`}
                   >
                     <Github className="w-5 h-5" />
                   </a>
                   <a 
                     href={project.live}
-                    className="text-primary hover:text-secondary transition-colors"
+                    className="text-muted-foreground hover:text-secondary transition-colors"
+                    aria-label={`View ${project.title} live demo`}
                   >
                     <ExternalLink className="w-5 h-5" />
                   </a>
                 </div>
               </div>
 
-              <p className="text-muted-foreground font-mono text-sm mb-4">
+              <p className="text-muted-foreground mb-6 leading-relaxed">
                 {project.description}
               </p>
 
-              <div className="flex flex-wrap gap-2 mb-4">
+              <div className="flex flex-wrap gap-2">
                 {project.tech.map((tech, techIndex) => (
                   <span
                     key={techIndex}
-                    className="px-2 py-1 border border-primary/20 bg-primary/5 text-primary font-mono text-xs"
+                    className="px-3 py-1 border border-border bg-muted/50 text-foreground font-mono text-xs hover:border-primary transition-colors"
                   >
                     {tech}
                   </span>
                 ))}
-              </div>
-
-              <div className="font-mono text-xs text-muted-foreground pt-4 border-t border-border">
-                <span className="text-primary">$</span> git status: <span className="text-secondary">deployed</span>
               </div>
             </div>
           ))}
         </div>
 
         <div className="mt-12 text-center">
-          <Button 
-            variant="outline" 
-            size="lg"
-            className="border-secondary text-secondary hover:bg-secondary/10 glow-border-cyan font-mono"
+          <a
+            href="https://github.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-6 py-3 border border-border bg-card/30 hover:border-primary text-foreground hover:text-primary transition-all font-mono"
           >
-            <Github className="w-4 h-4 mr-2" />
-            View All on GitHub
-          </Button>
+            <Github className="w-4 h-4" />
+            View More on GitHub
+          </a>
         </div>
       </div>
     </section>

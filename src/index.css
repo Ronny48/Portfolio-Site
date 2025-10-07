@@ -8,44 +8,44 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 3%;
-    --foreground: 120 100% 50%;
+    --background: 0 0% 4%;
+    --foreground: 0 0% 92%;
 
-    --card: 0 0% 5%;
-    --card-foreground: 120 100% 85%;
+    --card: 0 0% 6%;
+    --card-foreground: 0 0% 95%;
 
-    --popover: 0 0% 5%;
-    --popover-foreground: 120 100% 85%;
+    --popover: 0 0% 6%;
+    --popover-foreground: 0 0% 95%;
 
-    --primary: 120 100% 50%;
-    --primary-foreground: 0 0% 0%;
+    --primary: 142 71% 45%;
+    --primary-foreground: 0 0% 98%;
 
-    --secondary: 180 100% 50%;
-    --secondary-foreground: 0 0% 0%;
+    --secondary: 173 80% 40%;
+    --secondary-foreground: 0 0% 98%;
 
     --muted: 0 0% 15%;
-    --muted-foreground: 120 100% 35%;
+    --muted-foreground: 0 0% 60%;
 
-    --accent: 280 100% 60%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 271 91% 65%;
+    --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 100% 50%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 120 100% 25%;
-    --input: 0 0% 10%;
-    --ring: 120 100% 50%;
+    --border: 0 0% 20%;
+    --input: 0 0% 12%;
+    --ring: 142 71% 45%;
 
-    --radius: 0.125rem;
+    --radius: 0.25rem;
 
-    --terminal-green: 120 100% 50%;
-    --terminal-cyan: 180 100% 50%;
-    --terminal-purple: 280 100% 60%;
-    --terminal-dark: 0 0% 5%;
+    --terminal-green: 142 71% 45%;
+    --terminal-cyan: 173 80% 40%;
+    --terminal-purple: 271 91% 65%;
+    --terminal-orange: 31 100% 60%;
     
-    --glow-green: 120 100% 50%;
-    --glow-cyan: 180 100% 50%;
-    --glow-purple: 280 100% 60%;
+    --glow-green: 142 71% 45%;
+    --glow-cyan: 173 80% 40%;
+    --glow-purple: 271 91% 65%;
   }
 }
 
@@ -65,27 +65,35 @@ All colors MUST be HSL.
 
 @layer utilities {
   .glow-text-green {
-    text-shadow: 0 0 10px hsl(var(--glow-green)), 0 0 20px hsl(var(--glow-green)), 0 0 30px hsl(var(--glow-green));
+    text-shadow: 0 0 8px hsl(var(--glow-green) / 0.5), 0 0 16px hsl(var(--glow-green) / 0.3);
   }
   
   .glow-text-cyan {
-    text-shadow: 0 0 10px hsl(var(--glow-cyan)), 0 0 20px hsl(var(--glow-cyan)), 0 0 30px hsl(var(--glow-cyan));
+    text-shadow: 0 0 8px hsl(var(--glow-cyan) / 0.5), 0 0 16px hsl(var(--glow-cyan) / 0.3);
   }
   
   .glow-text-purple {
-    text-shadow: 0 0 10px hsl(var(--glow-purple)), 0 0 20px hsl(var(--glow-purple)), 0 0 30px hsl(var(--glow-purple));
+    text-shadow: 0 0 8px hsl(var(--glow-purple) / 0.5), 0 0 16px hsl(var(--glow-purple) / 0.3);
   }
   
   .glow-border-green {
-    box-shadow: 0 0 10px hsl(var(--glow-green) / 0.5), 0 0 20px hsl(var(--glow-green) / 0.3), inset 0 0 10px hsl(var(--glow-green) / 0.1);
+    box-shadow: 0 0 15px hsl(var(--glow-green) / 0.2), inset 0 0 15px hsl(var(--glow-green) / 0.05);
   }
   
   .glow-border-cyan {
-    box-shadow: 0 0 10px hsl(var(--glow-cyan) / 0.5), 0 0 20px hsl(var(--glow-cyan) / 0.3), inset 0 0 10px hsl(var(--glow-cyan) / 0.1);
+    box-shadow: 0 0 15px hsl(var(--glow-cyan) / 0.2), inset 0 0 15px hsl(var(--glow-cyan) / 0.05);
   }
   
   .terminal-line::before {
     content: ">";
-    @apply text-primary mr-2;
+    @apply text-primary mr-2 opacity-70;
+  }
+  
+  .hover-glow {
+    transition: all 0.3s ease;
+  }
+  
+  .hover-glow:hover {
+    box-shadow: 0 0 20px hsl(var(--glow-green) / 0.3), inset 0 0 20px hsl(var(--glow-green) / 0.08);
   }
 }
