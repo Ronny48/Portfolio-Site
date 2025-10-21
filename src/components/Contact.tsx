@@ -1,17 +1,35 @@
-import { Mail, MapPin, Download, Send } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { toast } from "sonner";
+import { Mail, MapPin, Download, Send } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { toast } from 'sonner';
+import emailjs from 'emailjs-com';
+import { useState } from 'react';
 
 const Contact = () => {
-  const handleSubmit = (e: React.FormEvent) => {
+  const [loading, setLoading] = useState(false);
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Message sent! I'll get back to you soon.");
+    setLoading(true);
+    const form = e.target as HTMLFormElement;
+
+    try {
+      await emailjs
+        .sendForm('service_ycrgiwi', 'template_vbqphok', form, 'rnUAaLI7FWjPinys8')
+        .then((result) => {
+          console.log('Message sent:', result.text);
+          toast.success("Message sent! I'll get back to you soon.");
+          form.reset();
+        });
+    } catch (error) {
+      console.log('Error:', error.text);
+      toast.error('Failed to send message. Please try again later.');
+    }
+    setLoading(false);
   };
 
   const handleDownloadResume = () => {
-    toast.info("Resume download would start here");
+    toast.info('Resume download would start here');
     // In real implementation: window.open('/path-to-your-resume.pdf', '_blank');
   };
 
@@ -37,8 +55,11 @@ const Contact = () => {
                   <Mail className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                   <div>
                     <div className="text-sm text-muted-foreground mb-1">Email</div>
-                    <a href="mailto:your.email@example.com" className="text-foreground hover:text-primary transition-colors">
-                      your.email@example.com
+                    <a
+                      href="mailto:your.email@example.com"
+                      className="text-foreground hover:text-primary transition-colors"
+                    >
+                      wisdommifatu12@gmail.com
                     </a>
                   </div>
                 </div>
@@ -46,7 +67,7 @@ const Contact = () => {
                   <MapPin className="w-5 h-5 text-secondary mt-0.5 flex-shrink-0" />
                   <div>
                     <div className="text-sm text-muted-foreground mb-1">Location</div>
-                    <span className="text-foreground">Remote / Your City, Country</span>
+                    <span className="text-foreground">Remote / Kasoa, Ghana</span>
                   </div>
                 </div>
               </div>
@@ -59,7 +80,7 @@ const Contact = () => {
               <p className="text-muted-foreground mb-4 text-sm">
                 Get a detailed overview of my experience, skills, and education.
               </p>
-              <Button 
+              <Button
                 onClick={handleDownloadResume}
                 variant="outline"
                 className="w-full border-border hover:border-primary hover:bg-primary/10 font-mono"
@@ -92,21 +113,23 @@ const Contact = () => {
                   <label className="text-sm font-mono text-muted-foreground mb-2 block">
                     Name *
                   </label>
-                  <Input 
+                  <Input
                     required
                     className="bg-input border-border text-foreground font-mono focus:border-primary focus:ring-primary"
-                    placeholder="John Doe"
+                    placeholder="Type Your Name"
+                    name="name"
                   />
                 </div>
                 <div>
                   <label className="text-sm font-mono text-muted-foreground mb-2 block">
                     Email *
                   </label>
-                  <Input 
+                  <Input
                     required
                     type="email"
                     className="bg-input border-border text-foreground font-mono focus:border-primary focus:ring-primary"
-                    placeholder="john@example.com"
+                    placeholder="Type your Email"
+                    name="email"
                   />
                 </div>
               </div>
@@ -115,10 +138,11 @@ const Contact = () => {
                 <label className="text-sm font-mono text-muted-foreground mb-2 block">
                   Subject *
                 </label>
-                <Input 
+                <Input
                   required
                   className="bg-input border-border text-foreground font-mono focus:border-primary focus:ring-primary"
                   placeholder="Project Inquiry"
+                  name="subject"
                 />
               </div>
 
@@ -126,19 +150,27 @@ const Contact = () => {
                 <label className="text-sm font-mono text-muted-foreground mb-2 block">
                   Message *
                 </label>
-                <Textarea 
+                <Textarea
                   required
                   className="bg-input border-border text-foreground font-mono focus:border-primary focus:ring-primary min-h-[150px] resize-none"
                   placeholder="Tell me about your project..."
+                  name="message"
                 />
               </div>
 
-              <Button 
+              <Button
                 type="submit"
+                disabled={loading}
                 className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-mono"
               >
-                <Send className="w-4 h-4 mr-2" />
-                Send Message
+                {loading ? (
+                  'Sending...'
+                ) : (
+                  <>
+                    <Send className="w-4 h-4 mr-2" />
+                    Send Message
+                  </>
+                )}
               </Button>
             </form>
           </div>
@@ -147,7 +179,7 @@ const Contact = () => {
         <div className="mt-16 pt-8 border-t border-border text-center">
           <div className="font-mono text-sm text-muted-foreground space-y-2">
             <div>Built with React, TypeScript & Tailwind CSS</div>
-            <div className="text-foreground">© 2024 Your Name. All rights reserved.</div>
+            <div className="text-foreground">© 2025 Elisha Wisdom Mifatu. All rights reserved.</div>
           </div>
         </div>
       </div>

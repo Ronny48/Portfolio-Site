@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
-import { Terminal, Github, Linkedin, Mail, ChevronDown } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { useState, useEffect } from 'react';
+import { Terminal, Github, Linkedin, Mail, ChevronDown } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 const Hero = () => {
-  const [displayText, setDisplayText] = useState("");
-  const fullText = "$ whoami";
+  const [displayText, setDisplayText] = useState('');
+  const fullText = '$ whoami';
   const [showCursor, setShowCursor] = useState(true);
   const [commandComplete, setCommandComplete] = useState(false);
 
@@ -37,7 +37,7 @@ const Hero = () => {
   return (
     <section className="min-h-screen flex items-center justify-center px-4 py-20 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-secondary/5" />
-      
+
       <div className="max-w-5xl w-full relative z-10">
         <div className="border border-border bg-card/50 backdrop-blur-sm p-6 md:p-12 hover-glow">
           <div className="flex items-center gap-2 mb-8 text-muted-foreground text-sm">
@@ -51,6 +51,13 @@ const Hero = () => {
               {showCursor && <span className="animate-pulse">_</span>}
             </div>
 
+            {/* Screen reader status: announce final output when command completes */}
+            <span role="status" aria-live="polite" className="sr-only">
+              {commandComplete
+                ? 'Command output: Full Stack Developer, Specialized in Node.js and React.'
+                : ''}
+            </span>
+
             {commandComplete && (
               <div className="space-y-6 animate-fade-in">
                 <div className="space-y-3 font-mono text-sm text-muted-foreground">
@@ -60,13 +67,15 @@ const Hero = () => {
                   </div>
                   <div className="flex gap-2">
                     <span className="text-primary">→</span>
-                    <span className="text-foreground">Specialized in React, Node.js & Cloud Architecture</span>
+                    <span className="text-foreground">
+                      Specialized in Node.js (Expressjs), React
+                    </span>
                   </div>
                 </div>
 
                 <div>
                   <h1 className="text-4xl md:text-7xl font-bold text-foreground mb-4 tracking-tight">
-                    Your Name Here
+                    Mifatu, Elisha Wisdom
                   </h1>
                   <p className="text-xl md:text-2xl text-secondary font-light">
                     Crafting scalable solutions for modern web
@@ -75,15 +84,15 @@ const Hero = () => {
 
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 py-6 border-y border-border">
                   <div>
-                    <div className="text-2xl md:text-3xl font-bold text-primary">5+</div>
+                    <div className="text-2xl md:text-3xl font-bold text-primary">1.5+</div>
                     <div className="text-sm text-muted-foreground font-mono">Years Exp</div>
                   </div>
                   <div>
-                    <div className="text-2xl md:text-3xl font-bold text-secondary">50+</div>
+                    <div className="text-2xl md:text-3xl font-bold text-secondary">10+</div>
                     <div className="text-sm text-muted-foreground font-mono">Projects</div>
                   </div>
                   <div>
-                    <div className="text-2xl md:text-3xl font-bold text-accent">30+</div>
+                    <div className="text-2xl md:text-3xl font-bold text-accent">0</div>
                     <div className="text-sm text-muted-foreground font-mono">Clients</div>
                   </div>
                   <div>
@@ -93,16 +102,16 @@ const Hero = () => {
                 </div>
 
                 <div className="flex flex-wrap gap-4">
-                  <Button 
+                  <Button
                     onClick={() => scrollToSection('projects')}
                     size="lg"
                     className="bg-primary text-primary-foreground hover:bg-primary/90 font-mono"
                   >
                     View Projects
                   </Button>
-                  <Button 
+                  <Button
                     onClick={() => scrollToSection('contact')}
-                    variant="outline" 
+                    variant="outline"
                     size="lg"
                     className="border-border hover:bg-secondary/10 hover:border-secondary font-mono"
                   >
@@ -111,8 +120,8 @@ const Hero = () => {
                 </div>
 
                 <div className="flex gap-4 pt-6">
-                  <a 
-                    href="https://github.com" 
+                  <a
+                    href="https://github.com/Ronny48"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-muted-foreground hover:text-primary transition-colors"
@@ -120,8 +129,8 @@ const Hero = () => {
                   >
                     <Github className="w-5 h-5" />
                   </a>
-                  <a 
-                    href="https://linkedin.com" 
+                  <a
+                    href="https://www.linkedin.com/in/elisha-wisdom-mifatu-3644b028b"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-muted-foreground hover:text-primary transition-colors"
@@ -129,8 +138,8 @@ const Hero = () => {
                   >
                     <Linkedin className="w-5 h-5" />
                   </a>
-                  <a 
-                    href="mailto:contact@example.com"
+                  <a
+                    href="mailto:wisdommifatu12@gmail.com"
                     className="text-muted-foreground hover:text-primary transition-colors"
                     aria-label="Email Contact"
                   >
@@ -142,7 +151,7 @@ const Hero = () => {
           </div>
         </div>
 
-        <button 
+        <button
           onClick={() => scrollToSection('about')}
           className="mt-8 mx-auto flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors font-mono text-sm"
           aria-label="Scroll to About Section"

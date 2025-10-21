@@ -1,45 +1,55 @@
 const Skills = () => {
   const skillCategories = [
     {
-      title: "Frontend",
+      title: 'Frontend',
       skills: [
-        { name: "React", level: 95 },
-        { name: "TypeScript", level: 90 },
-        { name: "Next.js", level: 85 },
-        { name: "Tailwind CSS", level: 90 },
-        { name: "Vue.js", level: 75 },
-      ]
+        { name: 'React', level: 72 },
+        { name: 'TypeScript', level: 64 },
+        { name: 'Tailwind CSS', level: 78 },
+        { name: 'JavaFx', level: 79 },
+        { name: 'HTML', level: 87 },
+        { name: 'CSS', level: 83 },
+        { name: 'Vanilla js', level: 75 },
+      ],
     },
     {
-      title: "Backend",
+      title: 'Backend',
       skills: [
-        { name: "Node.js", level: 90 },
-        { name: "Python", level: 80 },
-        { name: "PostgreSQL", level: 85 },
-        { name: "MongoDB", level: 80 },
-        { name: "GraphQL", level: 75 },
-      ]
+        { name: 'Node.js', level: 85 },
+        { name: 'Python', level: 80 },
+        { name: 'Java', level: 76 },
+        { name: 'PostgreSQL', level: 70 },
+        { name: 'MySQL', level: 72 },
+        { name: 'SQLite', level: 75 },
+        { name: 'Express.js', level: 80 },
+        { name: 'Django', level: 71 },
+      ],
     },
     {
-      title: "DevOps & Cloud",
+      title: 'DevOps & Cloud',
       skills: [
-        { name: "AWS", level: 85 },
-        { name: "Docker", level: 80 },
-        { name: "Kubernetes", level: 70 },
-        { name: "CI/CD", level: 85 },
-        { name: "Terraform", level: 65 },
-      ]
+        { name: 'Render', level: 70 },
+        { name: 'Vercel', level: 70 },
+        { name: 'Github Actions', level: 68 },
+        // { name: "AWS", level: 85 },
+        // { name: "Docker", level: 80 },
+        // { name: "Kubernetes", level: 70 },
+        // { name: "CI/CD", level: 85 },
+        // { name: "Terraform", level: 65 },
+      ],
     },
     {
-      title: "Tools & Others",
+      title: 'Tools & Others',
       skills: [
-        { name: "Git", level: 95 },
-        { name: "VS Code", level: 90 },
-        { name: "Figma", level: 75 },
-        { name: "Agile/Scrum", level: 85 },
-        { name: "Testing", level: 80 },
-      ]
-    }
+        { name: 'Git', level: 83 },
+        { name: 'Github', level: 85 },
+        { name: 'VS Code', level: 90 },
+        { name: 'Postman', level: 74 },
+        { name: 'Figma', level: 45 },
+        // { name: "Agile/Scrum", level: 85 },
+        // { name: "Testing", level: 80 },
+      ],
+    },
   ];
 
   return (
@@ -47,9 +57,7 @@ const Skills = () => {
       <div className="max-w-6xl mx-auto">
         <div className="mb-16">
           <div className="font-mono text-sm text-primary mb-3">$ ls -la skills/</div>
-          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
-            Technical Skills
-          </h2>
+          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">Technical Skills</h2>
           <div className="h-1 w-20 bg-gradient-to-r from-primary to-secondary" />
         </div>
 
@@ -68,10 +76,12 @@ const Skills = () => {
                   <div key={skillIndex}>
                     <div className="flex justify-between mb-2">
                       <span className="text-sm font-mono text-foreground">{skill.name}</span>
-                      <span className="text-sm font-mono text-muted-foreground">{skill.level}%</span>
+                      <span className="text-sm font-mono text-muted-foreground">
+                        {skill.level}%
+                      </span>
                     </div>
                     <div className="h-2 bg-muted rounded-full overflow-hidden">
-                      <div 
+                      <div
                         className="h-full bg-gradient-to-r from-primary to-secondary transition-all duration-1000 ease-out"
                         style={{ width: `${skill.level}%` }}
                       />

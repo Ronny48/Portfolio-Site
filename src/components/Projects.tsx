@@ -1,49 +1,53 @@
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink, Github } from 'lucide-react';
 
 const Projects = () => {
   const projects = [
     {
-      title: "E-Commerce Platform",
-      description: "Full-featured online shopping platform with payment integration, inventory management, and real-time analytics. Built for scalability and performance.",
-      tech: ["React", "Node.js", "PostgreSQL", "Stripe", "AWS"],
-      github: "#",
-      live: "#",
+      title: 'Blog Site',
+      description:
+        'Our Wonderful App is a full-stack blogging platform built with [your tech stack: React / Express / Django / etc]. Users can create accounts, log in, switch between UI themes (Blue / Warm / Dark), and write & share posts in a sleek, minimal interface. Deployed on Render to demonstrate production readiness.',
+      tech: ['EJS', 'Node.js/Express.js', 'Better-SQLite', 'CSS'],
+      github: 'https://github.com/Ronny48/my-web-app',
+      live: 'https://blog-app-tdag.onrender.com/',
       featured: true,
     },
     {
-      title: "Project Management Dashboard",
-      description: "Comprehensive tool for managing projects, teams, and deadlines with real-time collaboration features and detailed reporting.",
-      tech: ["Next.js", "TypeScript", "MongoDB", "Socket.io"],
-      github: "#",
-      live: "#",
+      title: 'CERA',
+      description:
+        'CERA is a modern JavaFX desktop application with a mobile view, designed for university campuses in Ghana to securely report incidents, either anonymously or with identification. The app provides a safe, user-friendly platform for students and staff to report emergencies, view reports, and for admins to manage and resolve cases.',
+      tech: ['Javafx', 'Java', 'MySqlite', 'Maven'],
+      github: 'https://github.com/Ronny48/cera',
+      live: '#',
       featured: true,
     },
     {
-      title: "AI Content Generator",
-      description: "SaaS platform leveraging AI to generate high-quality content for blogs, social media, and marketing campaigns.",
-      tech: ["React", "Python", "OpenAI API", "Redis"],
-      github: "#",
-      live: "#",
+      title: 'Log Book',
+      description:
+        'A full-stack visitor and package tracking system that lets receptionists record, monitor, and update the location of deliveries or visitors as they move across offices',
+      tech: ['React', 'Node.js/Express.js', 'TailwindCss', 'MySQLite'],
+      github: '#',
+      live: '#',
       featured: false,
     },
     {
-      title: "Real-Time Analytics Tool",
-      description: "Dashboard for monitoring website analytics with custom event tracking and visitor behavior analysis.",
-      tech: ["Vue.js", "Node.js", "ClickHouse", "Docker"],
-      github: "#",
-      live: "#",
+      title: 'Portfolio Website',
+      description: 'My personal portdolio website',
+      tech: ['React', 'Typescript', 'TailwindCss'],
+      github: 'https://github.com/Ronny48/cyber-folio-template',
+      live: '#',
       featured: false,
     },
   ];
 
   return (
-    <section id="projects" className="py-20 md:py-32 px-4 bg-gradient-to-b from-transparent via-secondary/5 to-transparent">
+    <section
+      id="projects"
+      className="py-20 md:py-32 px-4 bg-gradient-to-b from-transparent via-secondary/5 to-transparent"
+    >
       <div className="max-w-6xl mx-auto">
         <div className="mb-16">
           <div className="font-mono text-sm text-primary mb-3">$ cd projects/ && ls</div>
-          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
-            Featured Projects
-          </h2>
+          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">Featured Projects</h2>
           <div className="h-1 w-20 bg-gradient-to-r from-primary to-secondary" />
         </div>
 
@@ -60,14 +64,14 @@ const Projects = () => {
                   {project.title}
                 </h3>
                 <div className="flex gap-3">
-                  <a 
+                  <a
                     href={project.github}
                     className="text-muted-foreground hover:text-primary transition-colors"
                     aria-label={`View ${project.title} on GitHub`}
                   >
                     <Github className="w-5 h-5" />
                   </a>
-                  <a 
+                  <a
                     href={project.live}
                     className="text-muted-foreground hover:text-secondary transition-colors"
                     aria-label={`View ${project.title} live demo`}
@@ -77,9 +81,7 @@ const Projects = () => {
                 </div>
               </div>
 
-              <p className="text-muted-foreground mb-6 leading-relaxed">
-                {project.description}
-              </p>
+              <p className="text-muted-foreground mb-6 leading-relaxed">{project.description}</p>
 
               <div className="flex flex-wrap gap-2">
                 {project.tech.map((tech, techIndex) => (
@@ -97,7 +99,7 @@ const Projects = () => {
 
         <div className="mt-12 text-center">
           <a
-            href="https://github.com"
+            href="https://github.com/ronny48"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-6 py-3 border border-border bg-card/30 hover:border-primary text-foreground hover:text-primary transition-all font-mono"

@@ -1,26 +1,26 @@
-import { Code2, Zap, Target, Award } from "lucide-react";
+import { Code2, Zap, Target, Award } from 'lucide-react';
 
 const About = () => {
   const highlights = [
-    { 
-      icon: Code2, 
-      label: "Clean Code", 
-      description: "Writing maintainable, scalable solutions"
+    {
+      icon: Code2,
+      label: 'Clean Code',
+      description: 'Writing maintainable, scalable solutions',
     },
-    { 
-      icon: Zap, 
-      label: "Performance", 
-      description: "Optimized for speed and efficiency"
+    {
+      icon: Zap,
+      label: 'Performance',
+      description: 'Optimized for speed and efficiency',
     },
-    { 
-      icon: Target, 
-      label: "User-Focused", 
-      description: "Solutions that solve real problems"
+    {
+      icon: Target,
+      label: 'User-Focused',
+      description: 'Solutions that solve real problems',
     },
-    { 
-      icon: Award, 
-      label: "Best Practices", 
-      description: "Industry standards and patterns"
+    {
+      icon: Award,
+      label: 'Best Practices',
+      description: 'Industry standards and patterns',
     },
   ];
 
@@ -29,9 +29,7 @@ const About = () => {
       <div className="max-w-6xl mx-auto">
         <div className="mb-16">
           <div className="font-mono text-sm text-primary mb-3">$ cat about.md</div>
-          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
-            About Me
-          </h2>
+          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">About Me</h2>
           <div className="h-1 w-20 bg-gradient-to-r from-primary to-secondary" />
         </div>
 
@@ -43,16 +41,17 @@ const About = () => {
               </h3>
               <div className="space-y-4 text-muted-foreground leading-relaxed">
                 <p className="text-foreground/90">
-                  Full-stack developer with a passion for building exceptional digital experiences. 
-                  I specialize in modern web technologies and cloud-native architectures.
+                  Full-stack developer with a passion for building exceptional digital experiences.
+                  I specialize in modern web technologies with a more focus in backend development
+                  (server, database, API).
                 </p>
                 <p>
-                  My journey in software development has equipped me with a comprehensive understanding 
-                  of both frontend and backend systems, allowing me to deliver complete solutions 
-                  from concept to deployment.
+                  My journey in software development has equipped me with a comprehensive
+                  understanding of both frontend and backend systems, allowing me to deliver
+                  complete solutions from concept to deployment.
                 </p>
                 <p>
-                  I thrive on solving complex problems and transforming ideas into robust, 
+                  I thrive on solving complex problems and transforming ideas into robust,
                   user-friendly applications that make a real impact.
                 </p>
               </div>
@@ -65,15 +64,21 @@ const About = () => {
               <div className="space-y-3">
                 <div className="flex items-start gap-3">
                   <span className="text-primary mt-1">→</span>
-                  <p className="text-muted-foreground">Continuous learning and staying ahead of tech trends</p>
+                  <p className="text-muted-foreground">
+                    Continuous learning and staying ahead of tech trends
+                  </p>
                 </div>
                 <div className="flex items-start gap-3">
                   <span className="text-primary mt-1">→</span>
-                  <p className="text-muted-foreground">Building products that users love and businesses need</p>
+                  <p className="text-muted-foreground">
+                    Building products that users love and businesses need
+                  </p>
                 </div>
                 <div className="flex items-start gap-3">
                   <span className="text-primary mt-1">→</span>
-                  <p className="text-muted-foreground">Collaborating with talented teams on challenging projects</p>
+                  <p className="text-muted-foreground">
+                    Collaborating with talented teams on challenging projects
+                  </p>
                 </div>
               </div>
             </div>
