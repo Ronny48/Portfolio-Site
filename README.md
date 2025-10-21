@@ -1,9 +1,3 @@
-# Welcome to your Lovable project
-
-## Project info
-
-**URL**: https://lovable.dev/projects/6345477d-0114-4172-814d-e33bb508bc26
-
 # Elisha Wisdom Mifatu — Portfolio
 
 This repository contains the source for the personal portfolio of Elisha Wisdom Mifatu.
@@ -57,9 +51,3 @@ npm run lint
 ## Contributing
 
 - Run lint and build locally before opening a PR.
-
----
-
-I can also add ESLint + Prettier configs, a basic Vitest setup, or a small CI workflow — tell me which to do next.
-
-## How can I deploy this project?
