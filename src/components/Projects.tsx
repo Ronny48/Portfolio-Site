@@ -25,8 +25,8 @@ const Projects = () => {
       description:
         'A full-stack visitor and package tracking system that lets receptionists record, monitor, and update the location of deliveries or visitors as they move across offices',
       tech: ['React', 'Node.js/Express.js', 'TailwindCss', 'MySQLite'],
-      github: '#',
-      live: '#',
+      github: 'https://github.com/Ronny48/LogBook',
+      live: 'https://log-book-lime.vercel.app/',
       featured: false,
     },
     {
