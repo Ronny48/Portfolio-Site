@@ -18,6 +18,7 @@ const Skills = () => {
         { name: 'Node.js', level: 85 },
         { name: 'Python', level: 80 },
         { name: 'Java', level: 76 },
+        { name: 'Spring-Boot', level: 79 },
         { name: 'PostgreSQL', level: 70 },
         { name: 'MySQL', level: 72 },
         { name: 'SQLite', level: 75 },

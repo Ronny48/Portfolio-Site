@@ -6,11 +6,12 @@
     "paths": {
       "@/*": ["./src/*"]
     },
+    "ignoreDeprecations": "6.0",
     "noImplicitAny": false,
     "noUnusedParameters": false,
     "skipLibCheck": true,
     "allowJs": false,
     "noUnusedLocals": true,
-    "strictNullChecks": false
+    "strictNullChecks": false,
   }
 }
