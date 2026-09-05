@@ -63,12 +63,12 @@ const Hero = () => {
                 <div className="space-y-3 font-mono text-sm text-muted-foreground">
                   <div className="flex gap-2">
                     <span className="text-primary">→</span>
-                    <span className="text-foreground">Full Stack Developer</span>
+                    <span className="text-foreground">Software Developer</span>
                   </div>
                   <div className="flex gap-2">
                     <span className="text-primary">→</span>
                     <span className="text-foreground">
-                      Specialized in Node.js (Expressjs), React
+                      Specialized in Full Stack Software Engineering
                     </span>
                   </div>
                 </div>
@@ -84,17 +84,14 @@ const Hero = () => {
 
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 py-6 border-y border-border">
                   <div>
-                    <div className="text-2xl md:text-3xl font-bold text-primary">1.5+</div>
+                    <div className="text-2xl md:text-3xl font-bold text-primary">2+</div>
                     <div className="text-sm text-muted-foreground font-mono">Years Exp</div>
                   </div>
                   <div>
                     <div className="text-2xl md:text-3xl font-bold text-secondary">10+</div>
                     <div className="text-sm text-muted-foreground font-mono">Projects</div>
                   </div>
-                  <div>
-                    <div className="text-2xl md:text-3xl font-bold text-accent">0</div>
-                    <div className="text-sm text-muted-foreground font-mono">Clients</div>
-                  </div>
+                  
                   <div>
                     <div className="text-2xl md:text-3xl font-bold text-primary">100%</div>
                     <div className="text-sm text-muted-foreground font-mono">Satisfaction</div>
