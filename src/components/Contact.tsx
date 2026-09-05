@@ -86,7 +86,7 @@ const Contact = () => {
                 className="w-full border-border hover:border-primary hover:bg-primary/10 font-mono"
               >
                 <Download className="w-4 h-4 mr-2" />
-                <a href="/Elisha_Wisdom_Mifatu Resume.pdf" download="Elisha_Wisdom_Mifatu_Resume.pdf">
+                <a href="/Elisha_Wisdom_Mifatu Resume.pdf" download>
                   Download CV
                 </a>
               </Button>
