@@ -16,6 +16,7 @@ const Projects = () => {
       screenshots: [
         'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80',
         'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80',
       ],
     },
     {
@@ -32,6 +33,7 @@ const Projects = () => {
       screenshots: [
         'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=900&q=80',
         'https://images.unsplash.com/photo-1558494949cc5c1c7d7b8d8cb2f7cf3d3?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80',
       ],
     },
     {
@@ -48,6 +50,7 @@ const Projects = () => {
       screenshots: [
         'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80',
         'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=80',
       ],
     },
     {
@@ -64,6 +67,7 @@ const Projects = () => {
       screenshots: [
         'https://images.unsplash.com/photo-1522542550221-31fd19575a2d?auto=format&fit=crop&w=900&q=80',
         'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80',
       ],
     },
   ];
@@ -78,78 +82,95 @@ const Projects = () => {
         </div>
 
         <div className="grid gap-6 md:grid-cols-2 md:gap-8">
-          {projects.map((project, index) => (
-            <article
-              key={index}
-              className={`group overflow-hidden rounded-[24px] border border-border bg-card/30 p-4 transition-all duration-300 hover:-translate-y-1 hover-glow md:p-5 ${
-                project.featured ? 'md:col-span-2' : ''
-              }`}
-            >
-              <div className="space-y-4">
-                <div className="project-thumb overflow-hidden rounded-2xl">
-                  <img
-                    src={project.image}
-                    alt={`${project.title} preview`}
-                    className="h-56 w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] md:h-72"
-                  />
-                </div>
+          {projects.map((project, index) => {
+            const stack = project.screenshots?.length ? project.screenshots : [project.image];
 
-                <div className="flex items-center justify-between gap-3">
-                  <div>
-                    <p className="font-mono text-xs uppercase tracking-[0.2em] text-primary">
-                      {project.category}
-                    </p>
-                    <h3 className="mt-2 text-2xl font-bold text-foreground">{project.title}</h3>
+            return (
+              <article
+                key={index}
+                className={`group leaf-card p-4 transition-all duration-300 hover:-translate-y-1 hover-glow md:p-5 ${
+                  project.featured ? 'md:col-span-2' : ''
+                }`}
+              >
+                <div className="flex flex-col gap-5 lg:flex-row">
+                  <div className="w-full lg:w-[52%]">
+                    <div className="leaf-stack">
+                      {stack.map((shot, shotIndex) => {
+                        const width = project.featured ? 320 - shotIndex * 26 : 290 - shotIndex * 24;
+                        const height = project.featured ? 210 - shotIndex * 18 : 180 - shotIndex * 16;
+                        const left = project.featured ? 26 + shotIndex * 18 : 18 + shotIndex * 16;
+                        const top = project.featured ? 16 + shotIndex * 14 : 18 + shotIndex * 12;
+                        const rotate = shotIndex % 2 === 0 ? -(4 + shotIndex * 2) : 4 + shotIndex * 2;
+
+                        return (
+                          <div
+                            key={`${project.title}-${shotIndex}`}
+                            className="leaf-stack-item"
+                            style={{
+                              width: `${width}px`,
+                              height: `${height}px`,
+                              left: `${left}px`,
+                              top: `${top}px`,
+                              zIndex: stack.length - shotIndex,
+                              transform: `rotate(${rotate}deg)`,
+                              opacity: 1 - shotIndex * 0.12,
+                              animationDelay: `${shotIndex * 0.4}s`,
+                            }}
+                          >
+                            <img src={shot} alt={`${project.title} screenshot ${shotIndex + 1}`} />
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
 
-                  <div className="flex items-center gap-2">
-                    <a
-                      href={project.github}
-                      className="rounded-full border border-border p-2 text-muted-foreground transition-colors hover:border-primary hover:text-primary"
-                      aria-label={`View ${project.title} on GitHub`}
-                    >
-                      <Github className="h-4 w-4" />
-                    </a>
-                    {project.live !== '#' && (
-                      <a
-                        href={project.live}
-                        className="rounded-full border border-border p-2 text-muted-foreground transition-colors hover:border-secondary hover:text-secondary"
-                        aria-label={`View ${project.title} live demo`}
-                      >
-                        <ExternalLink className="h-4 w-4" />
-                      </a>
-                    )}
+                  <div className="flex flex-1 flex-col justify-between">
+                    <div>
+                      <div className="mb-3 flex items-center justify-between gap-3">
+                        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-primary">
+                          {project.category}
+                        </p>
+                        <div className="flex items-center gap-2">
+                          <a
+                            href={project.github}
+                            className="rounded-full border border-border p-2 text-muted-foreground transition-colors hover:border-primary hover:text-primary"
+                            aria-label={`View ${project.title} on GitHub`}
+                          >
+                            <Github className="h-4 w-4" />
+                          </a>
+                          {project.live !== '#' && (
+                            <a
+                              href={project.live}
+                              className="rounded-full border border-border p-2 text-muted-foreground transition-colors hover:border-secondary hover:text-secondary"
+                              aria-label={`View ${project.title} live demo`}
+                            >
+                              <ExternalLink className="h-4 w-4" />
+                            </a>
+                          )}
+                        </div>
+                      </div>
+
+                      <h3 className="mb-3 text-2xl font-bold text-foreground">{project.title}</h3>
+                      <p className="text-base leading-relaxed text-muted-foreground">
+                        {project.description}
+                      </p>
+                    </div>
+
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {project.tech.map((tech, techIndex) => (
+                        <span
+                          key={techIndex}
+                          className="rounded-full border border-border bg-muted/50 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-foreground/90"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
-
-                <p className="text-base leading-relaxed text-muted-foreground">{project.description}</p>
-
-                <div className="flex flex-wrap gap-2">
-                  {project.tech.map((tech, techIndex) => (
-                    <span
-                      key={techIndex}
-                      className="rounded-full border border-border bg-muted/50 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-foreground/90"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                {project.screenshots.length > 0 && (
-                  <div className="grid grid-cols-2 gap-2 pt-2">
-                    {project.screenshots.map((shot, shotIndex) => (
-                      <img
-                        key={shotIndex}
-                        src={shot}
-                        alt={`${project.title} screenshot ${shotIndex + 1}`}
-                        className="h-24 w-full rounded-xl border border-border bg-muted/30 object-cover md:h-28"
-                      />
-                    ))}
-                  </div>
-                )}
-              </div>
-            </article>
-          ))}
+              </article>
+            );
+          })}
         </div>
 
         <div className="mt-12 text-center">
