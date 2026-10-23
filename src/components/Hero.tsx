@@ -1,127 +1,160 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+import { useState, useEffect } from 'react';
+import { Terminal, Github, Linkedin, Mail, ChevronDown } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here.
-All colors MUST be HSL.
-*/
+const Hero = () => {
+  const [displayText, setDisplayText] = useState('');
+  const fullText = '$ whoami';
+  const [showCursor, setShowCursor] = useState(true);
+  const [commandComplete, setCommandComplete] = useState(false);
 
-@layer base {
-  :root {
-    --background: 224 27% 9%;
-    --foreground: 210 40% 98%;
+  useEffect(() => {
+    let currentIndex = 0;
+    const typingInterval = setInterval(() => {
+      if (currentIndex <= fullText.length) {
+        setDisplayText(fullText.slice(0, currentIndex));
+        currentIndex++;
+      } else {
+        clearInterval(typingInterval);
+        setTimeout(() => setCommandComplete(true), 500);
+      }
+    }, 120);
 
-    --card: 224 22% 12%;
-    --card-foreground: 210 40% 98%;
+    const cursorInterval = setInterval(() => {
+      setShowCursor((prev) => !prev);
+    }, 500);
 
-    --popover: 224 22% 12%;
-    --popover-foreground: 210 40% 98%;
+    return () => {
+      clearInterval(typingInterval);
+      clearInterval(cursorInterval);
+    };
+  }, []);
 
-    --primary: 167 72% 52%;
-    --primary-foreground: 222 47% 11%;
+  const scrollToSection = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
 
-    --secondary: 283 78% 68%;
-    --secondary-foreground: 210 40% 98%;
+  return (
+    <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 py-20">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(34,211,238,0.18),transparent_30%),radial-gradient(circle_at_bottom_right,_rgba(168,85,247,0.14),transparent_35%)]" />
 
-    --muted: 220 16% 16%;
-    --muted-foreground: 215 20% 72%;
+      <div className="relative z-10 w-full max-w-6xl">
+        <div className="glass-panel rounded-[28px] p-6 md:p-10 lg:p-12">
+          <div className="mb-8 flex items-center gap-2 text-sm text-muted-foreground">
+            <Terminal className="h-4 w-4 text-primary" />
+            <span className="font-mono">user@portfolio:~$</span>
+          </div>
 
-    --accent: 197 94% 61%;
-    --accent-foreground: 222 47% 11%;
+          <div className="space-y-6">
+            <div className="font-mono text-lg text-primary md:text-xl">
+              {displayText}
+              {showCursor && <span className="animate-pulse">_</span>}
+            </div>
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
+            <span role="status" aria-live="polite" className="sr-only">
+              {commandComplete
+                ? 'Command output: Full Stack Developer, specialized in building clean product experiences.'
+                : ''}
+            </span>
 
-    --border: 220 17% 20%;
-    --input: 220 17% 18%;
-    --ring: 167 72% 52%;
+            {commandComplete && (
+              <div className="animate-fade-in space-y-8">
+                <div className="space-y-2 font-mono text-sm text-muted-foreground">
+                  <div className="flex gap-2">
+                    <span className="text-primary">→</span>
+                    <span>Software Developer</span>
+                  </div>
+                  <div className="flex gap-2">
+                    <span className="text-primary">→</span>
+                    <span>Full-stack product builder</span>
+                  </div>
+                </div>
 
-    --radius: 1rem;
-    --terminal-green: 167 72% 52%;
-    --terminal-cyan: 189 94% 62%;
-    --terminal-purple: 283 78% 68%;
-    --terminal-orange: 31 100% 60%;
+                <div className="space-y-4">
+                  <h1 className="text-4xl font-black tracking-tight text-foreground md:text-6xl lg:text-7xl">
+                    Elisha Wisdom Mifatu
+                  </h1>
+                  <p className="max-w-2xl text-lg text-muted-foreground md:text-2xl">
+                    I design and build web experiences that feel polished, performant, and easy to trust.
+                  </p>
+                </div>
 
-    --glow-green: 167 72% 52%;
-    --glow-cyan: 189 94% 62%;
-    --glow-purple: 283 78% 68%;
-  }
-}
+                <div className="grid gap-4 border-y border-border py-6 md:grid-cols-3">
+                  <div>
+                    <div className="text-2xl font-bold text-primary md:text-3xl">2+</div>
+                    <div className="font-mono text-sm text-muted-foreground">Years experience</div>
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold text-secondary md:text-3xl">10+</div>
+                    <div className="font-mono text-sm text-muted-foreground">Projects shipped</div>
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold text-primary md:text-3xl">100%</div>
+                    <div className="font-mono text-sm text-muted-foreground">Problem-solving mindset</div>
+                  </div>
+                </div>
 
-@layer base {
-  * {
-    @apply border-border;
-  }
+                <div className="flex flex-wrap gap-4">
+                  <Button
+                    onClick={() => scrollToSection('projects')}
+                    size="lg"
+                    className="bg-primary text-primary-foreground hover:bg-primary/90 font-mono"
+                  >
+                    View Projects
+                  </Button>
+                  <Button
+                    onClick={() => scrollToSection('contact')}
+                    variant="outline"
+                    size="lg"
+                    className="border-border hover:border-secondary hover:bg-secondary/10 font-mono"
+                  >
+                    Get In Touch
+                  </Button>
+                </div>
 
-  html {
-    scroll-behavior: smooth;
-  }
+                <div className="flex items-center gap-4 pt-2">
+                  <a
+                    href="https://github.com/Ronny48"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground transition-colors hover:text-primary"
+                    aria-label="GitHub Profile"
+                  >
+                    <Github className="h-5 w-5" />
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/in/elisha-wisdom-mifatu-3644b028b"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground transition-colors hover:text-primary"
+                    aria-label="LinkedIn Profile"
+                  >
+                    <Linkedin className="h-5 w-5" />
+                  </a>
+                  <a
+                    href="mailto:wisdommifatu12@gmail.com"
+                    className="text-muted-foreground transition-colors hover:text-primary"
+                    aria-label="Email Contact"
+                  >
+                    <Mail className="h-5 w-5" />
+                  </a>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
 
-  body {
-    @apply bg-background text-foreground antialiased;
-    font-family: 'Inter', 'Segoe UI', sans-serif;
-    background-image:
-      radial-gradient(circle at 20% 20%, rgba(89, 222, 216, 0.12), transparent 30%),
-      radial-gradient(circle at 80% 0%, rgba(171, 103, 255, 0.12), transparent 26%),
-      linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-    background-size: auto, auto, 34px 34px, 34px 34px;
-    background-attachment: fixed;
-  }
+        <button
+          onClick={() => scrollToSection('about')}
+          className="mx-auto mt-8 flex items-center gap-2 font-mono text-sm text-muted-foreground transition-colors hover:text-primary"
+          aria-label="Scroll to About Section"
+        >
+          <span>Explore More</span>
+          <ChevronDown className="h-4 w-4 animate-bounce" />
+        </button>
+      </div>
+    </section>
+  );
+};
 
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    background: linear-gradient(180deg, rgba(7, 10, 18, 0.08), rgba(7, 10, 18, 0.6));
-  }
-}
-
-@layer utilities {
-  .glow-text-green {
-    text-shadow: 0 0 8px hsl(var(--glow-green) / 0.5), 0 0 16px hsl(var(--glow-green) / 0.3);
-  }
-
-  .glow-text-cyan {
-    text-shadow: 0 0 8px hsl(var(--glow-cyan) / 0.5), 0 0 16px hsl(var(--glow-cyan) / 0.3);
-  }
-
-  .glow-text-purple {
-    text-shadow: 0 0 8px hsl(var(--glow-purple) / 0.5), 0 0 16px hsl(var(--glow-purple) / 0.3);
-  }
-
-  .glow-border-green {
-    box-shadow: 0 0 15px hsl(var(--glow-green) / 0.2), inset 0 0 15px hsl(var(--glow-green) / 0.05);
-  }
-
-  .glow-border-cyan {
-    box-shadow: 0 0 15px hsl(var(--glow-cyan) / 0.2), inset 0 0 15px hsl(var(--glow-cyan) / 0.05);
-  }
-
-  .terminal-line::before {
-    content: '>';
-    @apply mr-2 text-primary opacity-70;
-  }
-
-  .hover-glow {
-    transition: all 0.3s ease;
-  }
-
-  .hover-glow:hover {
-    box-shadow: 0 0 20px hsl(var(--glow-green) / 0.18), inset 0 0 20px hsl(var(--glow-green) / 0.04);
-  }
-
-  .glass-panel {
-    background: rgba(15, 23, 42, 0.7);
-    border: 1px solid rgba(148, 163, 184, 0.18);
-    box-shadow: 0 20px 45px rgba(15, 23, 42, 0.28);
-    backdrop-filter: blur(14px);
-  }
-
-  .project-thumb {
-    border: 1px solid rgba(148, 163, 184, 0.18);
-    background: rgba(15, 23, 42, 0.75);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
-  }
-}
+export default Hero;

@@ -1,812 +1,127 @@
-import { useState, useEffect } from 'react';
-import { Terminal, Github, Linkedin, Mail, ChevronDown } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-const Hero = () => {
-  const [displayText, setDisplayText] = useState('');
-  const fullText = '$ whoami';
-  const [showCursor, setShowCursor] = useState(true);
-  const [commandComplete, setCommandComplete] = useState(false);
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here.
+All colors MUST be HSL.
+*/
 
-  useEffect(() => {
-    let currentIndex = 0;
-    const typingInterval = setInterval(() => {
-      if (currentIndex <= fullText.length) {
-        setDisplayText(fullText.slice(0, currentIndex));
-        currentIndex++;
-      } else {
-        clearInterval(typingInterval);
-        setTimeout(() => setCommandComplete(true), 500);
-      }
-    }, 120);
+@layer base {
+  :root {
+    --background: 224 27% 9%;
+    --foreground: 210 40% 98%;
 
-    const cursorInterval = setInterval(() => {
-      setShowCursor((prev) => !prev);
-    }, 500);
+    --card: 224 22% 12%;
+    --card-foreground: 210 40% 98%;
 
-    return () => {
-      clearInterval(typingInterval);
-      clearInterval(cursorInterval);
-    };
-  }, []);
+    --popover: 224 22% 12%;
+    --popover-foreground: 210 40% 98%;
 
-  const scrollToSection = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-  };
+    --primary: 167 72% 52%;
+    --primary-foreground: 222 47% 11%;
 
-  return (
-    <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 py-20">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(34,211,238,0.18),transparent_30%),radial-gradient(circle_at_bottom_right,_rgba(168,85,247,0.14),transparent_35%)]" />
+    --secondary: 283 78% 68%;
+    --secondary-foreground: 210 40% 98%;
 
-      <div className="relative z-10 w-full max-w-6xl">
-        <div className="glass-panel rounded-[28px] p-6 md:p-10 lg:p-12">
-          <div className="mb-8 flex items-center gap-2 text-sm text-muted-foreground">
-            <Terminal className="h-4 w-4 text-primary" />
-            <span className="font-mono">user@portfolio:~$</span>
-          </div>
+    --muted: 220 16% 16%;
+    --muted-foreground: 215 20% 72%;
 
-          <div className="space-y-6">
-            <div className="font-mono text-lg text-primary md:text-xl">
-              {displayText}
-              {showCursor && <span className="animate-pulse">_</span>}
-            </div>
+    --accent: 197 94% 61%;
+    --accent-foreground: 222 47% 11%;
 
-            <span role="status" aria-live="polite" className="sr-only">
-              {commandComplete
-                ? 'Command output: Full Stack Developer, specialized in building clean product experiences.'
-                : ''}
-            </span>
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
 
-            {commandComplete && (
-              <div className="animate-fade-in space-y-8">
-                <div className="space-y-2 font-mono text-sm text-muted-foreground">
-                  <div className="flex gap-2">
-                    <span className="text-primary">→</span>
-                    <span>Software Developer</span>
-                  </div>
-                  <div className="flex gap-2">
-                    <span className="text-primary">→</span>
-                    <span>Full-stack product builder</span>
-                  </div>
-                </div>
+    --border: 220 17% 20%;
+    --input: 220 17% 18%;
+    --ring: 167 72% 52%;
 
-                <div className="space-y-4">
-                  <h1 className="text-4xl font-black tracking-tight text-foreground md:text-6xl lg:text-7xl">
-                    Elisha Wisdom Mifatu
-                  </h1>
-                  <p className="max-w-2xl text-lg text-muted-foreground md:text-2xl">
-                    I design and build web experiences that feel polished, performant, and easy to trust.
-                  </p>
-                </div>
+    --radius: 1rem;
+    --terminal-green: 167 72% 52%;
+    --terminal-cyan: 189 94% 62%;
+    --terminal-purple: 283 78% 68%;
+    --terminal-orange: 31 100% 60%;
 
-                <div className="grid gap-4 border-y border-border py-6 md:grid-cols-3">
-                  <div>
-                    <div className="text-2xl font-bold text-primary md:text-3xl">2+</div>
-                    <div className="font-mono text-sm text-muted-foreground">Years experience</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-secondary md:text-3xl">10+</div>
-                    <div className="font-mono text-sm text-muted-foreground">Projects shipped</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-primary md:text-3xl">100%</div>
-                    <div className="font-mono text-sm text-muted-foreground">Problem-solving mindset</div>
-                  </div>
-                </div>
+    --glow-green: 167 72% 52%;
+    --glow-cyan: 189 94% 62%;
+    --glow-purple: 283 78% 68%;
+  }
+}
 
-                <div className="flex flex-wrap gap-4">
-                  <Button
-                    onClick={() => scrollToSection('projects')}
-                    size="lg"
-                    className="bg-primary text-primary-foreground hover:bg-primary/90 font-mono"
-                  >
-                    View Projects
-                  </Button>
-                  <Button
-                    onClick={() => scrollToSection('contact')}
-                    variant="outline"
-                    size="lg"
-                    className="border-border hover:border-secondary hover:bg-secondary/10 font-mono"
-                  >
-                    Get In Touch
-                  </Button>
-                </div>
+@layer base {
+  * {
+    @apply border-border;
+  }
 
-                <div className="flex items-center gap-4 pt-2">
-                  <a
-                    href="https://github.com/Ronny48"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-muted-foreground transition-colors hover:text-primary"
-                    aria-label="GitHub Profile"
-                  >
-                    <Github className="h-5 w-5" />
-                  </a>
-                  <a
-                    href="https://www.linkedin.com/in/elisha-wisdom-mifatu-3644b028b"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-muted-foreground transition-colors hover:text-primary"
-                    aria-label="LinkedIn Profile"
-                  >
-                    <Linkedin className="h-5 w-5" />
-                  </a>
-                  <a
-                    href="mailto:wisdommifatu12@gmail.com"
-                    className="text-muted-foreground transition-colors hover:text-primary"
-                    aria-label="Email Contact"
-                  >
-                    <Mail className="h-5 w-5" />
-                  </a>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
+  html {
+    scroll-behavior: smooth;
+  }
 
-        <button
-          onClick={() => scrollToSection('about')}
-          className="mx-auto mt-8 flex items-center gap-2 font-mono text-sm text-muted-foreground transition-colors hover:text-primary"
-          aria-label="Scroll to About Section"
-        >
-          <span>Explore More</span>
-          <ChevronDown className="h-4 w-4 animate-bounce" />
-        </button>
-      </div>
-    </section>
-  );
-};
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    background-image:
+      radial-gradient(circle at 20% 20%, rgba(89, 222, 216, 0.12), transparent 30%),
+      radial-gradient(circle at 80% 0%, rgba(171, 103, 255, 0.12), transparent 26%),
+      linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: auto, auto, 34px 34px, 34px 34px;
+    background-attachment: fixed;
+  }
 
-export default Hero;
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(180deg, rgba(7, 10, 18, 0.08), rgba(7, 10, 18, 0.6));
+  }
+}
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+@layer utilities {
+  .glow-text-green {
+    text-shadow: 0 0 8px hsl(var(--glow-green) / 0.5), 0 0 16px hsl(var(--glow-green) / 0.3);
+  }
 
-"path":"src/components/Projects.tsx"} ,{"content":"import { ExternalLink, Github } from 'lucide-react';
+  .glow-text-cyan {
+    text-shadow: 0 0 8px hsl(var(--glow-cyan) / 0.5), 0 0 16px hsl(var(--glow-cyan) / 0.3);
+  }
 
-const Projects = () => {
-  const projects = [
-    {
-      title: 'Blog Site',
-      category: 'Full-Stack Product',
-      description:
-        'A polished blogging platform with theme switching, authentication, and a clean content workflow designed for a modern editorial experience.',
-      tech: ['EJS', 'Node.js', 'Express', 'Better-SQLite', 'CSS'],
-      github: 'https://github.com/Ronny48/my-web-app',
-      live: 'https://blog-app-tdag.onrender.com/',
-      featured: true,
-      image:
-        'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80',
-      screenshots: [
-        'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80',
-        'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80',
-      ],
-    },
-    {
-      title: 'CERA',
-      category: 'Campus Safety App',
-      description:
-        'A JavaFX-based reporting system for university campuses to manage incidents securely and quickly while supporting both anonymous and identified submissions.',
-      tech: ['JavaFX', 'Java', 'MySQL', 'Maven'],
-      github: 'https://github.com/Ronny48/cera',
-      live: '#',
-      featured: true,
-      image:
-        'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80',
-      screenshots: [
-        'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=900&q=80',
-        'https://images.unsplash.com/photo-1558494949cc5c1c7d7b8d8cb2f7cf3d3?auto=format&fit=crop&w=900&q=80',
-      ],
-    },
-    {
-      title: 'Log Book',
-      category: 'Operations Dashboard',
-      description:
-        'A delivery and visitor tracking system for office-based operations, helping reception teams record updates with speed and clarity.',
-      tech: ['React', 'Express', 'TailwindCSS', 'SQLite'],
-      github: 'https://github.com/Ronny48/LogBook',
-      live: 'https://log-book-lime.vercel.app/',
-      featured: false,
-      image:
-        'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80',
-      screenshots: [
-        'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80',
-        'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80',
-      ],
-    },
-    {
-      title: 'Portfolio Website',
-      category: 'Personal Brand',
-      description:
-        'A modern personal portfolio built to present work, experience, and credibility in a crisp, conversion-focused way.',
-      tech: ['React', 'TypeScript', 'TailwindCSS'],
-      github: 'https://github.com/Ronny48/cyber-folio-template',
-      live: '#',
-      featured: false,
-      image:
-        'https://images.unsplash.com/photo-1516321165247-4aa89a48be28?auto=format&fit=crop&w=1200&q=80',
-      screenshots: [
-        'https://images.unsplash.com/photo-1522542550221-31fd19575a2d?auto=format&fit=crop&w=900&q=80',
-        'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80',
-      ],
-    },
-  ];
+  .glow-text-purple {
+    text-shadow: 0 0 8px hsl(var(--glow-purple) / 0.5), 0 0 16px hsl(var(--glow-purple) / 0.3);
+  }
 
-  return (
-    <section
-      id="projects"
-      className="px-4 py-20 md:py-32"
-    >
-      <div className="mx-auto max-w-6xl">
-        <div className="mb-16">
-          <div className="mb-3 font-mono text-sm text-primary">$ cd projects/ && ls</div>
-          <h2 className="mb-4 text-3xl font-bold text-foreground md:text-5xl">Featured Projects</h2>
-          <div className="h-1 w-20 bg-gradient-to-r from-primary to-secondary" />
-        </div>
+  .glow-border-green {
+    box-shadow: 0 0 15px hsl(var(--glow-green) / 0.2), inset 0 0 15px hsl(var(--glow-green) / 0.05);
+  }
 
-        <div className="grid gap-6 md:grid-cols-2 md:gap-8">
-          {projects.map((project, index) => (
-            <article
-              key={index}
-              className={`group overflow-hidden rounded-[24px] border border-border bg-card/30 p-4 transition-all duration-300 hover:-translate-y-1 hover-glow md:p-5 ${
-                project.featured ? 'md:col-span-2' : ''
-              }`}
-            >
-              <div className="space-y-4">
-                <div className="project-thumb overflow-hidden rounded-2xl">
-                  <img
-                    src={project.image}
-                    alt={`${project.title} preview`}
-                    className="h-56 w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] md:h-72"
-                  />
-                </div>
+  .glow-border-cyan {
+    box-shadow: 0 0 15px hsl(var(--glow-cyan) / 0.2), inset 0 0 15px hsl(var(--glow-cyan) / 0.05);
+  }
 
-                <div className="flex items-center justify-between gap-3">
-                  <div>
-                    <p className="font-mono text-xs uppercase tracking-[0.2em] text-primary">
-                      {project.category}
-                    </p>
-                    <h3 className="mt-2 text-2xl font-bold text-foreground">{project.title}</h3>
-                  </div>
+  .terminal-line::before {
+    content: '>';
+    @apply mr-2 text-primary opacity-70;
+  }
 
-                  <div className="flex items-center gap-2">
-                    <a
-                      href={project.github}
-                      className="rounded-full border border-border p-2 text-muted-foreground transition-colors hover:border-primary hover:text-primary"
-                      aria-label={`View ${project.title} on GitHub`}
-                    >
-                      <Github className="h-4 w-4" />
-                    </a>
-                    {project.live !== '#' && (
-                      <a
-                        href={project.live}
-                        className="rounded-full border border-border p-2 text-muted-foreground transition-colors hover:border-secondary hover:text-secondary"
-                        aria-label={`View ${project.title} live demo`}
-                      >
-                        <ExternalLink className="h-4 w-4" />
-                      </a>
-                    )}
-                  </div>
-                </div>
+  .hover-glow {
+    transition: all 0.3s ease;
+  }
 
-                <p className="text-base leading-relaxed text-muted-foreground">{project.description}</p>
+  .hover-glow:hover {
+    box-shadow: 0 0 20px hsl(var(--glow-green) / 0.18), inset 0 0 20px hsl(var(--glow-green) / 0.04);
+  }
 
-                <div className="flex flex-wrap gap-2">
-                  {project.tech.map((tech, techIndex) => (
-                    <span
-                      key={techIndex}
-                      className="rounded-full border border-border bg-muted/50 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-foreground/90"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
+  .glass-panel {
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    box-shadow: 0 20px 45px rgba(15, 23, 42, 0.28);
+    backdrop-filter: blur(14px);
+  }
 
-                {project.screenshots.length > 0 && (
-                  <div className="grid grid-cols-2 gap-2 pt-2">
-                    {project.screenshots.map((shot, shotIndex) => (
-                      <img
-                        key={shotIndex}
-                        src={shot}
-                        alt={`${project.title} screenshot ${shotIndex + 1}`}
-                        className="h-24 w-full rounded-xl object-cover border border-border bg-muted/30 md:h-28"
-                      />
-                    ))}
-                  </div>
-                )}
-              </div>
-            </article>
-          ))}
-        </div>
-
-        <div className="mt-12 text-center">
-          <a
-            href="https://github.com/ronny48"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-border bg-card/30 px-6 py-3 font-mono text-sm text-foreground transition-all hover:border-primary hover:text-primary"
-          >
-            <Github className="h-4 w-4" />
-            View More on GitHub
-          </a>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-export default Projects;
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"path":"src/components/Contact.tsx"} ,{"content":"import { Mail, MapPin, Download, Send } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { toast } from 'sonner';
-import emailjs from 'emailjs-com';
-import { useState } from 'react';
-
-const Contact = () => {
-  const [loading, setLoading] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    const form = e.target as HTMLFormElement;
-
-    try {
-      await emailjs
-        .sendForm('service_ycrgiwi', 'template_vbqphok', form, 'rnUAaLI7FWjPinys8')
-        .then((result) => {
-          console.log('Message sent:', result.text);
-          toast.success("Message sent! I'll get back to you soon.");
-          form.reset();
-        });
-    } catch (error) {
-      console.log('Error:', error);
-      toast.error('Failed to send message. Please try again later.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleDownloadResume = () => {
-    const resumeUrl = '/Elisha_Wisdom_Mifatu Resume.pdf';
-    window.open(resumeUrl, '_blank', 'noopener,noreferrer');
-  };
-
-  return (
-    <section id="contact" className="px-4 py-20 md:py-32">
-      <div className="mx-auto max-w-6xl">
-        <div className="mb-16">
-          <div className="mb-3 font-mono text-sm text-primary">$ cat contact.json</div>
-          <h2 className="mb-4 text-3xl font-bold text-foreground md:text-5xl">
-            Let&apos;s Work Together
-          </h2>
-          <div className="h-1 w-20 bg-gradient-to-r from-primary to-secondary" />
-        </div>
-
-        <div className="grid gap-8 lg:grid-cols-5">
-          <div className="space-y-6 lg:col-span-2">
-            <div className="glass-panel rounded-[24px] p-6 md:p-8">
-              <h3 className="mb-6 flex items-center gap-2 text-xl font-bold text-foreground">
-                <span className="text-primary">▸</span> Contact Info
-              </h3>
-              <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <Mail className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" />
-                  <div>
-                    <div className="mb-1 text-sm text-muted-foreground">Email</div>
-                    <a
-                      href="mailto:wisdommifatu12@gmail.com"
-                      className="text-foreground transition-colors hover:text-primary"
-                    >
-                      wisdommifatu12@gmail.com
-                    </a>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <MapPin className="mt-0.5 h-5 w-5 flex-shrink-0 text-secondary" />
-                  <div>
-                    <div className="mb-1 text-sm text-muted-foreground">Location</div>
-                    <span className="text-foreground">Remote / Kasoa, Ghana</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="glass-panel rounded-[24px] p-6 md:p-8">
-              <h3 className="mb-4 flex items-center gap-2 text-xl font-bold text-foreground">
-                <span className="text-secondary">▸</span> Download Resume
-              </h3>
-              <p className="mb-4 text-sm text-muted-foreground">
-                Get a detailed overview of my experience, skills, and education.
-              </p>
-              <Button
-                onClick={handleDownloadResume}
-                variant="outline"
-                className="w-full border-border font-mono hover:border-primary hover:bg-primary/10"
-              >
-                <Download className="mr-2 h-4 w-4" />
-                Download CV
-              </Button>
-            </div>
-
-            <div className="glass-panel rounded-[24px] p-6">
-              <div className="space-y-2 font-mono text-sm">
-                <div className="text-muted-foreground">
-                  <span className="text-primary">$</span> availability --status
-                </div>
-                <div className="flex items-center gap-2 text-secondary">
-                  <span className="h-2 w-2 animate-pulse rounded-full bg-secondary" />
-                  Currently accepting new projects
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="glass-panel rounded-[24px] p-6 md:p-8 lg:col-span-3">
-            <h3 className="mb-6 flex items-center gap-2 text-xl font-bold text-foreground">
-              <span className="text-primary">▸</span> Send a Message
-            </h3>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid gap-6 md:grid-cols-2">
-                <div>
-                  <label className="mb-2 block text-sm font-mono text-muted-foreground">Name *</label>
-                  <Input
-                    required
-                    className="border-border bg-input text-foreground focus:border-primary focus:ring-primary"
-                    placeholder="Type Your Name"
-                    name="name"
-                  />
-                </div>
-                <div>
-                  <label className="mb-2 block text-sm font-mono text-muted-foreground">Email *</label>
-                  <Input
-                    required
-                    type="email"
-                    className="border-border bg-input text-foreground focus:border-primary focus:ring-primary"
-                    placeholder="Type your Email"
-                    name="email"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="mb-2 block text-sm font-mono text-muted-foreground">Subject *</label>
-                <Input
-                  required
-                  className="border-border bg-input text-foreground focus:border-primary focus:ring-primary"
-                  placeholder="Project Inquiry"
-                  name="subject"
-                />
-              </div>
-
-              <div>
-                <label className="mb-2 block text-sm font-mono text-muted-foreground">Message *</label>
-                <Textarea
-                  required
-                  className="min-h-[150px] resize-none border-border bg-input text-foreground focus:border-primary focus:ring-primary"
-                  placeholder="Tell me about your project..."
-                  name="message"
-                />
-              </div>
-
-              <Button
-                type="submit"
-                disabled={loading}
-                className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-mono"
-              >
-                {loading ? (
-                  'Sending...'
-                ) : (
-                  <>
-                    <Send className="mr-2 h-4 w-4" />
-                    Send Message
-                  </>
-                )}
-              </Button>
-            </form>
-          </div>
-        </div>
-
-        <div className="mt-16 border-t border-border pt-8 text-center">
-          <div className="space-y-2 font-mono text-sm text-muted-foreground">
-            <div>Built with React, TypeScript & Tailwind CSS</div>
-            <div className="text-foreground">© 2025 Elisha Wisdom Mifatu. All rights reserved.</div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-export default Contact;
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"path":"src/components/About.tsx"} ,{"content":"import { Code2, Zap, Target, Award } from 'lucide-react';
-
-const About = () => {
-  const highlights = [
-    {
-      icon: Code2,
-      label: 'Clean Code',
-      description: 'Writing maintainable, scalable solutions',
-    },
-    {
-      icon: Zap,
-      label: 'Performance',
-      description: 'Optimized for speed and efficiency',
-    },
-    {
-      icon: Target,
-      label: 'User-Focused',
-      description: 'Solutions that solve real problems',
-    },
-    {
-      icon: Award,
-      label: 'Best Practices',
-      description: 'Industry standards and patterns',
-    },
-  ];
-
-  return (
-    <section id="about" className="px-4 py-20 md:py-32">
-      <div className="mx-auto max-w-6xl">
-        <div className="mb-16">
-          <div className="mb-3 font-mono text-sm text-primary">$ cat about.md</div>
-          <h2 className="mb-4 text-3xl font-bold text-foreground md:text-5xl">About Me</h2>
-          <div className="h-1 w-20 bg-gradient-to-r from-primary to-secondary" />
-        </div>
-
-        <div className="mb-12 grid gap-8 md:gap-12 lg:grid-cols-2">
-          <div className="space-y-6">
-            <div className="glass-panel rounded-[24px] p-6 md:p-8">
-              <h3 className="mb-4 flex items-center gap-2 text-xl font-bold text-foreground">
-                <span className="text-primary">▸</span> Who I Am
-              </h3>
-              <div className="space-y-4 leading-relaxed text-muted-foreground">
-                <p className="text-foreground/90">
-                  Full-stack developer with a passion for building exceptional digital experiences.
-                  I specialize in modern web technologies with a strong focus on backend systems,
-                  databases, and API design.
-                </p>
-                <p>
-                  My journey in software development has equipped me with a practical understanding of
-                  both frontend and backend work, enabling me to build complete solutions from concept
-                  to deployment.
-                </p>
-                <p>
-                  I enjoy turning complex problems into smooth, user-friendly experiences that deliver
-                  measurable value.
-                </p>
-              </div>
-            </div>
-
-            <div className="glass-panel rounded-[24px] p-6 md:p-8">
-              <h3 className="mb-4 flex items-center gap-2 text-xl font-bold text-foreground">
-                <span className="text-secondary">▸</span> What Drives Me
-              </h3>
-              <div className="space-y-3">
-                <div className="flex items-start gap-3">
-                  <span className="mt-1 text-primary">→</span>
-                  <p className="text-muted-foreground">Continuous learning and shipping meaningful products</p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <span className="mt-1 text-primary">→</span>
-                  <p className="text-muted-foreground">Building interfaces that feel effortless for users</p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <span className="mt-1 text-primary">→</span>
-                  <p className="text-muted-foreground">Collaborating with teams on products that create real impact</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="grid gap-4 md:grid-cols-2">
-            {highlights.map((item, index) => (
-              <div
-                key={index}
-                className="glass-panel rounded-[22px] p-6 text-center transition-all duration-300 hover-glow"
-              >
-                <item.icon className="mx-auto mb-3 h-8 w-8 text-primary" />
-                <div className="mb-2 text-lg font-bold text-foreground">{item.label}</div>
-                <div className="text-xs text-muted-foreground">{item.description}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-export default About;
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"path":"src/components/Experience.tsx"} ,{"content":"import { Briefcase, GraduationCap } from 'lucide-react';
-
-const Experience = () => {
-  const experiences = [
-    {
-      type: 'work',
-      title: 'IT support',
-      company: 'Ministry of Energy and Green Transition',
-      period: '2025',
-      description:
-        'Interned at the ministry of energy and green transition where I gained hands-on experience in networking, infrastructure support, and hardware troubleshooting while building a workflow-driven project to improve internal operations.',
-      achievements: [
-        'Troubleshot network and infrastructure issues',
-        'Set up online and offline meeting support',
-        'Built a visitor and letter tracking system for internal use',
-      ],
-    },
-    {
-      type: 'education',
-      title: 'Bachelor of Science in Computer Science',
-      company: 'University of Cape Coast',
-      period: '2022 - present',
-      description:
-        'Focused on software engineering, algorithms, data structures, networking, and web technologies.',
-      achievements: ['Worked in a team to build a campus emergency reporting app with JavaFX'],
-    },
-  ];
-
-  return (
-    <section id="experience" className="px-4 py-20 md:py-32">
-      <div className="mx-auto max-w-6xl">
-        <div className="mb-16">
-          <div className="mb-3 font-mono text-sm text-primary">$ cat experience.log</div>
-          <h2 className="mb-4 text-3xl font-bold text-foreground md:text-5xl">Experience & Education</h2>
-          <div className="h-1 w-20 bg-gradient-to-r from-primary to-secondary" />
-        </div>
-
-        <div className="space-y-8">
-          {experiences.map((exp, index) => (
-            <div
-              key={index}
-              className="glass-panel rounded-[24px] p-6 transition-all duration-300 hover-glow md:p-8"
-            >
-              <div className="mb-4 flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-                <div className="flex items-start gap-3">
-                  {exp.type === 'work' ? (
-                    <Briefcase className="mt-1 h-5 w-5 flex-shrink-0 text-primary" />
-                  ) : (
-                    <GraduationCap className="mt-1 h-5 w-5 flex-shrink-0 text-secondary" />
-                  )}
-                  <div>
-                    <h3 className="text-xl font-bold text-foreground">{exp.title}</h3>
-                    <p className="font-mono text-sm text-primary">{exp.company}</p>
-                  </div>
-                </div>
-                <div className="font-mono text-sm text-muted-foreground md:text-right">{exp.period}</div>
-              </div>
-
-              <p className="mb-4 ml-8 text-muted-foreground">{exp.description}</p>
-
-              <div className="ml-8 space-y-2">
-                {exp.achievements.map((achievement, achIndex) => (
-                  <div key={achIndex} className="flex items-start gap-2 text-sm">
-                    <span className="mt-1 text-primary">▹</span>
-                    <span className="text-muted-foreground">{achievement}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
-
-export default Experience;
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"path":"src/components/Skills.tsx"} ,{"content":"const Skills = () => {
-  const skillCategories = [
-    {
-      title: 'Frontend',
-      skills: [
-        { name: 'React', level: 72 },
-        { name: 'TypeScript', level: 64 },
-        { name: 'Tailwind CSS', level: 78 },
-        { name: 'JavaFX', level: 79 },
-        { name: 'HTML', level: 87 },
-        { name: 'CSS', level: 83 },
-        { name: 'Vanilla JS', level: 75 },
-      ],
-    },
-    {
-      title: 'Backend',
-      skills: [
-        { name: 'Node.js', level: 85 },
-        { name: 'Python', level: 80 },
-        { name: 'Java', level: 76 },
-        { name: 'Spring Boot', level: 79 },
-        { name: 'PostgreSQL', level: 70 },
-        { name: 'MySQL', level: 72 },
-        { name: 'SQLite', level: 75 },
-        { name: 'Express.js', level: 80 },
-        { name: 'Django', level: 71 },
-      ],
-    },
-    {
-      title: 'DevOps & Cloud',
-      skills: [
-        { name: 'Render', level: 70 },
-        { name: 'Vercel', level: 70 },
-        { name: 'GitHub Actions', level: 68 },
-      ],
-    },
-    {
-      title: 'Tools & Others',
-      skills: [
-        { name: 'Git', level: 83 },
-        { name: 'GitHub', level: 85 },
-        { name: 'VS Code', level: 90 },
-        { name: 'Postman', level: 74 },
-        { name: 'Figma', level: 45 },
-      ],
-    },
-  ];
-
-  return (
-    <section id="skills" className="px-4 py-20 md:py-32">
-      <div className="mx-auto max-w-6xl">
-        <div className="mb-16">
-          <div className="mb-3 font-mono text-sm text-primary">$ ls -la skills/</div>
-          <h2 className="mb-4 text-3xl font-bold text-foreground md:text-5xl">Technical Skills</h2>
-          <div className="h-1 w-20 bg-gradient-to-r from-primary to-secondary" />
-        </div>
-
-        <div className="grid gap-8 md:grid-cols-2">
-          {skillCategories.map((category, index) => (
-            <div
-              key={index}
-              className="glass-panel rounded-[24px] p-6 transition-all duration-300 hover-glow md:p-8"
-            >
-              <h3 className="mb-6 flex items-center gap-2 text-xl font-bold text-foreground">
-                <span className="text-primary">▸</span>
-                {category.title}
-              </h3>
-              <div className="space-y-4">
-                {category.skills.map((skill, skillIndex) => (
-                  <div key={skillIndex}>
-                    <div className="mb-2 flex items-center justify-between gap-3">
-                      <span className="text-sm font-mono text-foreground">{skill.name}</span>
-                      <span className="text-sm font-mono text-muted-foreground">{skill.level}%</span>
-                    </div>
-                    <div className="h-2 overflow-hidden rounded-full bg-muted">
-                      <div
-                        className="h-full bg-gradient-to-r from-primary to-secondary transition-all duration-1000 ease-out"
-                        style={{ width: `${skill.level}%` }}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="glass-panel mt-12 rounded-[24px] p-6">
-          <div className="space-y-2 font-mono text-sm">
-            <div className="text-muted-foreground">
-              <span className="text-primary">$</span> git log --oneline --graph
-            </div>
-            <div className="text-secondary">* Constantly learning and adapting to new technologies</div>
-            <div className="text-muted-foreground">
-              <span className="text-primary">$</span> echo "Always improving, always growing"
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-export default Skills;
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""}]}  
-
-{
+  .project-thumb {
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    background: rgba(15, 23, 42, 0.75);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  }
+}
